@@ -69,11 +69,21 @@ impl InputDataType {
                 Ok(data)
             },
             Self::Sin(max) => {
+                let max = *max;
                 let mut sin = std::io::stdin();
                 let mut data = Vec::<u8>::new();
-                data.resize(*max, 0);
-                let bytesread = sin.read(&mut data)?;
-                data.resize(bytesread, 0);
+                data.resize(max, 0);
+                let mut offset = 0;
+                let mut total = 0usize;
+                loop {
+                    let bytesread = sin.read(&mut data[offset..])?;
+                    total += bytesread;
+                    if bytesread == 0 || total >= max {
+                        break;
+                    }
+                    offset += bytesread;
+                }
+                data.resize(std::cmp::min(total, max), 0);
                 Ok(data)
             }
             Self::None => {
@@ -239,7 +249,6 @@ fn main() -> Result<(), AppError> {
     let count = get_count(&m)?;
     let mut buf = Vec::<u8>::new();
     buf.reserve(4096);
-    println!("{:?}", inputdata);
     for i in 0..count {
         buf.extend(inputdata.get_bytes(1)?.iter());
         if i + 1 < count {
