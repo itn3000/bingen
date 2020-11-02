@@ -45,7 +45,7 @@ All work and no play makes Jack a dull boy
 All work and no play makes Jack a dull boy
 ```
 
-## generate 1024 data randomly and output file to x.bin
+## generate 1024 bytes data randomly and output file to x.bin
 
 ```
 > bingen -r -c 1024 -o x.bin
