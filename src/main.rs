@@ -168,7 +168,6 @@ fn create_app<'a, 'b>() -> clap::App<'a, 'b> {
                 .long("--file")
                 .value_name("INPUT")
                 .help("data from file")
-                .conflicts_with_all(&["input-hex", "input-base64", "input-string", "--input-random"])
         )
         .arg(
             clap::Arg::with_name("input-hex")
@@ -176,7 +175,6 @@ fn create_app<'a, 'b>() -> clap::App<'a, 'b> {
                 .long("--hex")
                 .help("data from hex string('0x' MUST NOT BE ADDED)")
                 .value_name("HEX_STRING")
-                .conflicts_with_all(&["input-file", "input-base64", "input-string", "--input-random"])
         )
         .arg(
             clap::Arg::with_name("input-base64")
@@ -184,7 +182,6 @@ fn create_app<'a, 'b>() -> clap::App<'a, 'b> {
                 .long("base64")
                 .help("data from base64 string")
                 .value_name("BASE64_STRING")
-                .conflicts_with_all(&["input-file", "input-hex", "input-string", "--input-random"])
         )
         .arg(
             clap::Arg::with_name("input-string")
@@ -192,10 +189,6 @@ fn create_app<'a, 'b>() -> clap::App<'a, 'b> {
                 .long("string")
                 .help("data from string(encoding to utf-8)")
                 .value_name("INPUT_STRING")
-                .conflicts_with("input-file")
-                .conflicts_with("input-hex")
-                .conflicts_with("input-base64")
-                .conflicts_with("input-random")
         )
         .arg(
             clap::Arg::with_name("input-random")
